@@ -1,0 +1,21 @@
+Install eksctl
+
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+
+Setup EKS Cluster
+
+
+eksctl create cluster --name three-tier-cluster --region us-west-2 --node-type t2.medium --nodes-min 2 --nodes-max 2
+aws eks update-kubeconfig --region us-west-2 --name three-tier-cluster
+kubectl get nodes
+
+Run Manifests
+
+kubectl create namespace two-tier-ns
+kubectl apply -f .
+Kubectl delete -f .
+
+
+eksctl delete cluster --name my-cluster --region us-west-2
